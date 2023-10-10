@@ -1,0 +1,28 @@
+from netmiko import ConnectHandler
+
+# Defina os parâmetros de conexão para o dispositivo Cisco
+device = {
+    'device_type': 'cisco_ios',
+    'ip': 'seu_endereco_ip',
+    'username': 'seu_nome_de_usuario',
+    'password': 'sua_senha',
+    'secret': 'sua_senha_privilegiada',  # Se necessário
+}
+
+# Conecte-se ao dispositivo
+net_connect = ConnectHandler(**device)
+
+# Acesse o modo de configuração privilegiada
+net_connect.enable()
+
+# Comando para exibir informações da árvore de spanning
+show_stp_command = 'show spanning-tree'
+
+# Envie o comando para exibir informações da árvore de spanning
+output = net_connect.send_command(show_stp_command)
+
+# Imprima a saída para verificação
+print(output)
+
+# Feche a conexão
+net_connect.disconnect()
